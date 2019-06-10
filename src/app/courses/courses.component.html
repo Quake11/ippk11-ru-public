@@ -1,0 +1,80 @@
+<h2 class="mat-headline">Список курсов</h2>
+
+
+<ng-container *ngIf="isAdmin$ | async; then adminTemplate; else userTemplate;">
+</ng-container>
+
+
+
+
+
+<ng-template #adminTemplate>
+  <div class="admin">
+    <h4 class="mat-subheading-2">Вы вошли как администратор</h4>
+
+    <div class="controls">
+      <mat-slide-toggle [checked]="editingEnabled" (change)="editingEnabled = $event.checked"
+        [disabled]="draggingEnabled">Режим редактирования>
+      </mat-slide-toggle>
+      <mat-slide-toggle [checked]="draggingEnabled" (change)="draggingEnabled = $event.checked">Режим сортировки
+      </mat-slide-toggle>
+    </div>
+  </div>
+
+
+  <div class="sort-buttons">
+    <mat-button-toggle-group name="coursesType" aria-label="Типы курсов" #group="matButtonToggleGroup">
+      <mat-button-toggle value="all" [checked]="true">Все курсы</mat-button-toggle>
+      <mat-button-toggle value="pk">Повышение квалификации</mat-button-toggle>
+      <mat-button-toggle value="pp">Профессиональная переподготовка</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+
+  <div class="example-container" cdkDropListGroup [ngClass]="{'dragging': isDragging}">
+    <div cdkDropList [cdkDropListEnterPredicate]="dropListEnterPredicate"
+      (cdkDropListDropped)="dropListDropped($event)">
+    </div>
+    <div cdkDropList *ngFor="let course of list | courseTypeFilter: group.value; trackBy: trackByFn"
+      class="course-wrapper" [cdkDropListEnterPredicate]="dropListEnterPredicate"
+      (cdkDropListDropped)="dropListDropped($event)">
+      <app-course-card cdkDrag [cdkDragDisabled]="!draggingEnabled" (cdkDragStarted)="dragStarted()"
+        (cdkDragReleased)="dragReleased()" [compact]="draggingEnabled" (cdkDragMoved)="dragMoved($event)"
+        [course]="course" [canEdit]="editingEnabled">
+        <div class="drag-handle" cdkDragHandle *ngIf="draggingEnabled">
+          <svg class="octicon octicon-grabber" viewBox="0 0 8 16" version="1.1" width="8" height="16"
+            aria-hidden="true">
+            <path fill-rule="evenodd" d="M8 4v1H0V4h8zM0 8h8V7H0v1zm0 3h8v-1H0v1z"></path>
+          </svg>
+        </div>
+      </app-course-card>
+    </div>
+
+    <div class="course-wrapper" *ngIf="!draggingEnabled && editingEnabled">
+      <app-course-card [canCreate]="editingEnabled"></app-course-card>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #userTemplate>
+  <div class="sort-buttons">
+    <mat-button-toggle-group name="coursesType" aria-label="Типы курсов" #group="matButtonToggleGroup">
+      <mat-button-toggle value="all" [checked]="true">Все курсы</mat-button-toggle>
+      <mat-button-toggle value="pk">Повышение квалификации</mat-button-toggle>
+      <mat-button-toggle value="pp">Профессиональная переподготовка</mat-button-toggle>
+    </mat-button-toggle-group>
+  </div>
+  <ng-container *ngIf="list.length">
+    <div class="course-wrapper" *ngFor="let course of list  | courseTypeFilter: group.value; trackBy: trackByFn">
+      <app-course-card [course]="course">
+      </app-course-card>
+    </div>
+  </ng-container>
+</ng-template>
+
+
+<!-- Fake course cards for loading placeholder -->
+<ng-container *ngIf="!list.length">
+  <div class="course-wrapper" *ngFor="let fake of fakeList">
+    <app-course-card [fake]="true"></app-course-card>
+  </div>
+</ng-container>

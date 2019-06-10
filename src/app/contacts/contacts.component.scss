@@ -1,0 +1,67 @@
+:host {
+  display: block;
+  margin-top: 1rem;
+}
+
+.grass {
+  background: url(/assets/grass.svg);
+  height: 4rem;
+  margin-bottom: -1px;
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.content {
+  text-align: center;
+  display: flex;
+  background: #b9750d;
+  color: white;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 25px;
+
+  .title {
+    font-size: 2rem;
+    margin: 10px 0 20px;
+  }
+
+  .info {
+    font-size: 1.5rem;
+    margin: 10px;
+  }
+
+  .flex-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+
+  .flex-column {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .phones {
+    display: flex;
+    align-items: center;
+    margin: 20px;
+  }
+}
+
+.developer {
+  font-size: 1rem;
+  padding-bottom: 100px;
+
+  mat-icon {
+    margin-right: 5px;
+  }
+
+  a {
+    color: #fff;
+  }
+}

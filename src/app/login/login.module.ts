@@ -1,0 +1,15 @@
+import { MatButtonModule } from '@angular/material/button';
+import { UsersService } from '../services/users.service';
+import { AuthService } from '../services/auth.service';
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { LoginComponent } from './login.component';
+import { RouterModule } from '@angular/router';
+
+@NgModule({
+  declarations: [LoginComponent],
+  imports: [CommonModule, MatButtonModule, RouterModule],
+  exports: [LoginComponent],
+  providers: [AuthService, UsersService],
+})
+export class LoginModule {}

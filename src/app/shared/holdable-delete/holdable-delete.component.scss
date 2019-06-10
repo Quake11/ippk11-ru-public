@@ -1,0 +1,23 @@
+:host {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 10px 0;
+
+  &.titled {
+    border: 1px dashed #fd0909bf;
+    border-radius: 3px;
+
+  }
+
+  button.delete {
+    position: relative;
+
+    mat-progress-spinner {
+      position: absolute;
+      right: -17px;
+      top: -17px;
+    }
+  }
+}
+

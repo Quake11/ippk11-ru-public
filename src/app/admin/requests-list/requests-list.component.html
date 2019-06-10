@@ -1,0 +1,34 @@
+<h3 class="mat-display-1">Список заявок</h3>
+
+<mat-list>
+  <ng-container *ngIf="listNew$ | async as listNew">
+    <div class="new" @list>
+      <h3 mat-subheader>Новые (<strong>{{ listNew.length }}</strong>)</h3>
+      <mat-list-item *ngFor="let req of listNew; trackBy: trackByFn;" @items>
+        <app-request-item [request]="req"></app-request-item>
+      </mat-list-item>
+      <ng-container *ngIf="!listNew.length">
+        <h4 mat-line>Нет новых заявок</h4>
+      </ng-container>
+    </div>
+  </ng-container>
+
+  <mat-divider></mat-divider>
+
+  <ng-container *ngIf="listDone$ | async as listDone">
+    <div class="done">
+      <h3 mat-subheader>Завершённые ({{ listDone.length }})</h3>
+      <mat-list-item *ngFor="let req of listDone; trackBy: trackByFn;" @items>
+        <app-request-item [request]="req"></app-request-item>
+      </mat-list-item>
+      <ng-container *ngIf="!listDone.length">
+        <h4 mat-line>Нет завершённых заявок</h4>
+      </ng-container>
+    </div>
+  </ng-container>
+</mat-list>
+
+
+<ng-container *ngIf="!(listNew$ | async) && !(listDone$ | async)">
+  <h3>Нет заявок</h3>
+</ng-container>

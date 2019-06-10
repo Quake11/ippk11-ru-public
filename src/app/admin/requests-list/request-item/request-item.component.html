@@ -1,0 +1,85 @@
+<!-- Note dialog template -->
+<ng-template #noteDialog>
+  <h1 mat-dialog-title>
+    Заявка от {{noteDialogData.name}} ({{ noteDialogData.date.seconds  * 1000 | date:'dd.MM.yyyy HH:mm:ss':'UTC+3' }})
+  </h1>
+
+  <div mat-dialog-content>
+    <mat-form-field>
+      <textarea matInput placeholder="Текст заметки" [(ngModel)]="noteDialogData.note" cdkTextareaAutosize></textarea>
+    </mat-form-field>
+  </div>
+
+  <div mat-dialog-actions style="display: flex;justify-content:space-between;margin-top:15px;">
+    <button mat-stroked-button matDialogClose type="button">Отмена</button>
+    <button mat-raised-button matDialogClose type="button" color="warn" mat-dialog-close (click)="deleteNote()"
+      *ngIf="request.note">
+      Удалить заметку
+    </button>
+    <button mat-raised-button color="primary" type="button" [mat-dialog-close]="noteDialogData.note">
+      Сохранить
+    </button>
+  </div>
+</ng-template>
+
+
+<!-- Item template-->
+<mat-expansion-panel [expanded]="false" [@.disabled]="true">
+  <mat-expansion-panel-header>
+    <mat-panel-title>
+      {{ request.secondName }} {{ request.firstName }} {{ request.middleName }}
+    </mat-panel-title>
+    <mat-panel-description *ngIf="request.createDate">
+      от {{ request.createDate.seconds * 1000 | date:'dd.MM.yyyy HH:mm:ss':'UTC+3' }}
+
+      <div class="icons">
+        <mat-icon *ngIf="request.note" color="primary" [matTooltip]="request.note" matTooltipPosition="above">
+          info
+        </mat-icon>
+
+        <mat-icon *ngIf="!request.done" color="accent" matTooltip="Новая заявка" matTooltipPosition="above">
+          new_releases
+        </mat-icon>
+      </div>
+
+    </mat-panel-description>
+  </mat-expansion-panel-header>
+
+  <ng-container *ngIf="course$ | async as course">
+    <h4>Направление: {{ getCourseTypeName(course.type) }} </h4>
+    <h4>Курс: {{ course.name }} </h4>
+  </ng-container>
+
+  <h4 class="phone" *ngIf="request.phoneNumber">
+    <mat-icon>phone</mat-icon> +7 {{ request.phoneNumber }}
+  </h4>
+  <h4 class="email" *ngIf="request.email">
+    <mat-icon>mail</mat-icon> {{ request.email }}
+  </h4>
+  <p class="mat-body-2" *ngIf="request.additionalInfo">
+    Доп. информация: {{ request.additionalInfo }}
+  </p>
+
+  <p class="mat-body-1" style="opacity: 0.75" *ngIf="request.updateDate">
+    Дата редактирования заявки: {{ request.updateDate.seconds * 1000 | date:'dd.MM.yyyy HH:mm:ss':'UTC+3' }}
+  </p>
+
+
+  <mat-action-row>
+    <button mat-raised-button color="primary" type="button" (click)="setDone(true)" *ngIf="!request.done">
+      Завершить завку
+    </button>
+    <button mat-raised-button color="accent" type="button" (click)="setDone(false)" *ngIf="request.done">
+      Переместить в новые
+    </button>
+
+    <button mat-stroked-button color="primary" type="button" *ngIf="!request.note" (click)="openNoteDialog()">
+      Написать заметку
+    </button>
+    <button mat-stroked-button color="primary" type="button" *ngIf="request.note" (click)="openNoteDialog()">
+      Отредактировать заметку
+    </button>
+
+    <app-holdable-delete [title]="'Удалить заявку'" (deleted)="onDelete()"></app-holdable-delete>
+  </mat-action-row>
+</mat-expansion-panel>

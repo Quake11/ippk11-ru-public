@@ -1,0 +1,143 @@
+:host {
+  display: flex;
+  flex-basis: 25rem;
+  justify-content: center;
+  height: 100%;
+  width: 100%;
+
+  .course-card {
+    width: 100%;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+
+    .logo {
+      background-size: cover;
+    }
+
+    .img {
+      object-fit: cover;
+      height: 250px;
+    }
+
+    mat-card-actions {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}
+
+mat-form-field,
+mat-card-header {
+  width: 100%;
+  margin: 5px 0;
+}
+
+.cost-info {
+  margin-top: auto;
+
+  p {
+    margin-top: 10px;
+    display: flex;
+
+    mat-icon {
+      margin-left: 5px;
+    }
+
+    &.paid mat-icon {
+      cursor: pointer;
+    }
+
+    &.free {
+      color: green;
+    }
+  }
+}
+
+.course-card.fake {
+  $light-grey: #8080800a;
+  $dark-grey: #8a888827;
+  .logo {
+    background: $light-grey;
+  }
+
+  mat-card-title {
+    height: 30px;
+  }
+
+  mat-card-subtitle {
+    height: 20px;
+  }
+
+  mat-card-content {
+    height: 150px;
+
+    p {
+      height: 100%;
+    }
+  }
+
+  .cost-info {
+    height: 20px;
+    margin: 10px 0;
+
+    p {
+      height: 100%;
+    }
+  }
+
+  .button {
+    height: 30px;
+  }
+
+  .shine {
+    background: $light-grey;
+    padding: 2px;
+    position: relative;
+    border-radius: 10px;
+    margin: 0 0 10px;
+    width: 100%;
+
+    &.dark {
+      background: $dark-grey;
+    }
+
+    &.medium {
+      width: 50%;
+    }
+
+    &.short {
+      width: 30%;
+    }
+  }
+
+  /* Shine */
+  .shine:after {
+    content: '';
+    width: inherit;
+    height: inherit;
+    position: absolute;
+    animation: slide 1s infinite;
+    background: linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 255, 255, 0.8) 50%,
+      rgba(128, 186, 232, 0) 99%,
+      rgba(125, 185, 232, 0) 100%
+    );
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#00ffffff", endColorstr="#007db9e8", GradientType=1);
+  }
+
+  /* animation */
+
+  @keyframes slide {
+    0% {
+      transform: translateX(-100%);
+    }
+
+    100% {
+      transform: translateX(100%);
+    }
+  }
+}

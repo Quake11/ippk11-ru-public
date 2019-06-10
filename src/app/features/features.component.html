@@ -1,0 +1,9 @@
+<h2 class="mat-headline">Наши преимущества</h2>
+
+<div class="list">
+  <div class="feature" *ngFor="let feature of features">
+    <div class="logo" [innerHTML]="feature.logo | safe: 'html'">
+    </div>
+    <h4 class="name">{{ feature.name }}</h4>
+  </div>
+</div>

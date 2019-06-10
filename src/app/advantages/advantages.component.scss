@@ -1,0 +1,24 @@
+:host {
+  margin: 1rem 0;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  padding: 25px;
+  border-radius: 5px;
+}
+
+h2 {
+  width: 100%;
+  text-align: center;
+  font-size: 2rem;
+}
+
+.list {
+  display: inline-block;
+
+  .advantage {
+    font-size: calc(1rem + 1vh);
+    margin: 20px 0;
+  }
+}

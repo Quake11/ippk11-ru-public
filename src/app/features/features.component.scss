@@ -1,0 +1,46 @@
+:host {
+  margin: 1rem 0;
+  display: block;
+  background: #439f47;
+  padding: 25px;
+  border-radius: 5px;
+  color: white;
+  fill: white;
+}
+
+h2 {
+  width: 100%;
+  text-align: center;
+  font-size: 2rem;
+}
+
+.list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  padding: 1rem;
+
+  .feature {
+    font-size: 1.4rem;
+    display: flex;
+    flex-direction: column;
+    margin: 25px;
+    flex-basis: 300px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    max-width: 100%;
+
+    .logo {
+      height: 100px;
+      margin: 15px;
+    }
+
+    .name {
+      font-size: 1.5rem;
+      max-width: 80vw;
+    }
+  }
+}

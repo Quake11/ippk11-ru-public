@@ -1,0 +1,89 @@
+<ng-container *ngIf="status.sending && !status.sent; then sending">
+</ng-container>
+
+<ng-container *ngIf="!status.sending && status.sent; then sent">
+</ng-container>
+
+<ng-container *ngIf="!status.sending && !status.sent; then formTemplate">
+</ng-container>
+
+
+<ng-template #sending>
+  <div class="spinner-wrapper">
+    <mat-spinner>
+    </mat-spinner>
+  </div>
+</ng-template>
+
+<ng-template #sent>
+  <div style="text-align:center;">
+    <h2 class="mat-title">
+      {{ firstName.value }} {{ middleName.value }}, спасибо за обращение!
+    </h2>
+    <h2 class="mat-title">
+      Ваша заявка принята.
+    </h2>
+
+    <p class="mat-body-1">
+      При необходимости с вами свяжутся наши специалисты.
+    </p>
+
+    <button mat-raised-button color="primary" matDialogClose type="button">Ок</button>
+  </div>
+</ng-template>
+
+<ng-template #formTemplate>
+  <form class="example-form" (ngSubmit)="onSubmit()" [formGroup]="form">
+    <ng-container *ngIf="requestedCourse$ | async as course">
+      <mat-form-field class="example-full-width">
+        <textarea matInput placeholder="Направление" disabled [value]="getCourseTypeName(course.type)"></textarea>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width">
+        <textarea matInput placeholder="Курс" disabled [value]="course.name"></textarea>
+      </mat-form-field>
+    </ng-container>
+
+
+    <mat-form-field class="example-full-width">
+      <input matInput formControlName="secondName" placeholder="Фамилия" />
+      <mat-error *ngIf="secondName.invalid">Фамилию необходимо заполнить</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input matInput formControlName="firstName" placeholder="Имя" />
+      <mat-error *ngIf="firstName.invalid">Имя необходимо заполнить</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input matInput formControlName="middleName" placeholder="Отчество" />
+      <mat-error *ngIf="middleName.invalid">Отчество необходимо заполнить</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <span matPrefix>+7 &nbsp;</span>
+      <input type="tel" formControlName="phoneNumber" matInput placeholder="Телефон" />
+      <mat-icon matSuffix>phone</mat-icon>
+      <mat-error *ngIf="phoneNumber.invalid">Ошибка в написании номера</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <input type="email" formControlName="email" matInput placeholder="Электронный адрес (email)" />
+      <mat-icon matSuffix>mail</mat-icon>
+      <mat-error *ngIf="email.invalid">Ошибка в написании эл. адреса</mat-error>
+    </mat-form-field>
+
+    <mat-form-field class="example-full-width">
+      <textarea matInput formControlName="additionalInfo" placeholder="Доп. информация (необязательно)"></textarea>
+    </mat-form-field>
+
+    <mat-checkbox (change)="agree = $event.checked">Даю согласие на обработку персональных данных</mat-checkbox>
+
+    <div class="buttons">
+      <button mat-stroked-button matDialogClose type="button">Отмена</button>
+      <button mat-raised-button color="accent" [disabled]="form.invalid || !agree">
+        Отправить заявку
+      </button>
+    </div>
+  </form>
+</ng-template>

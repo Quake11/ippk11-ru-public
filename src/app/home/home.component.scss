@@ -1,0 +1,122 @@
+:host {
+  width: 100vw;
+}
+
+.intro {
+  height: 100vh;
+  width: 100vw;
+  max-width: 100%;
+  overflow: hidden;
+
+  .background {
+    height: 100%;
+    width: 100%;
+    background-image: url('/assets/intro.jpg');
+    background-repeat: no-repeat;
+    background-position: center bottom;
+    background-size: cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    color: white;
+
+    animation: saturate 3s normal forwards linear;
+    animation: zoom 20s normal forwards ease-in-out;
+    animation-iteration-count: 1;
+  }
+
+  .text {
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    h1 {
+      padding: 10px 0;
+      font-size: 4.5vh;
+      color: #2b2b2b;
+      line-height: 5.5vh;
+    }
+
+    h2 {
+      font-size: 3vh;
+      line-height: 3.5vh;
+      color: #565656;
+    }
+  }
+}
+
+.content {
+  h3 {
+    text-align: center;
+  }
+}
+
+@keyframes saturate {
+  from {
+    filter: saturate(0.75);
+  }
+  to {
+    filter: saturate(2);
+  }
+}
+
+@keyframes zoom {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.01);
+  }
+}
+
+.farm {
+  height: 50vh;
+  width: 100vw;
+  max-width: 100%;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: cover;
+
+  &.farm-1 {
+    background-image: url('/assets/farm_1.svg');
+  }
+
+  &.farm-2 {
+    background-image: url('/assets/farm_2.svg');
+  }
+}
+
+.scroll-down {
+  bottom: 10px;
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  width: 1rem;
+  height: 1rem;
+  border-bottom: 2px solid #43a047;
+  border-right: 2px solid #43a047;
+  animation: fade_move_down 2.5s ease-in infinite;
+}
+
+@keyframes fade_move_down {
+  0% {
+    transform: translate(0, -20px) rotate(45deg);
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate(0, 20px) rotate(45deg);
+    opacity: 0;
+  }
+}
